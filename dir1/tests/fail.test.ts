@@ -1,26 +1,33 @@
-import { chromium } from "playwright";
+import { Page } from "playwright";
+import { navigateToUrl } from "./utils/appUtils";
 
 jest.retryTimes(3);
-describe("Test Suite # 3", ()=>{
+describe("Test Suite # 3", () => {
+  let page: Page;
 
-    test("test case # 3", async()=>{
-        // launch browser
-        const browser = await chromium.launch();
+  beforeAll(async () => {
+    const getDefaultPage = (): Page => (global as any).page;
+    page = getDefaultPage();
+  });
 
-        // create browser context
-        const context = await browser.newContext();
+  afterAll(async () => {
+    if (page) {
+      await page.close();
+    }
+  });
 
-        // open page
-        const page = await context.newPage();
+  test("Open Yahoo", async () => {
+    //navigate to a website
+    await navigateToUrl(page, "https://www.yahoo.com");
 
-        //navigate to a website
-        await page.goto('https://www.kambojsociety.com/');
+    await page.waitForLoadState("networkidle"); // This resolves after 'networkidle'
 
-        //fail('it should not reach here');
-
-        await page.close();
-        await context.close();
-        await browser.close();
+    await page.screenshot({
+      path: `./screenshots/yahoo-${Date.now().toString()}.png`,
     });
 
+    await page.click("[data-id='account']");
+
+    //fail('it should not reach here');
+  });
 });

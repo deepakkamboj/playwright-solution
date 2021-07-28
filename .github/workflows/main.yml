@@ -1,0 +1,52 @@
+# This is a basic workflow to help you get started with Actions
+
+name: 'CI Pipeline'
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  e2e-tests:
+    name: 'Playwright Tests'
+    runs-on: windows-latest # or macos-latest, ubuntu-latest
+
+    env:
+      working-directory: ./dir1
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v2
+
+      - name: Install Node
+        uses: actions/setup-node@v1
+
+      - name: Playwright Setup
+        uses: microsoft/playwright-github-action@v1
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Solution
+        run: npm run build
+        timeout-minutes: 15
+
+      - name: Run Playwright Tests
+        run: npm run test
+        timeout-minutes: 15
+        working-directory: ${{env.working-directory}}
+
+      - name: Publish .trx Test Results
+        uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: test-artifacts
+          path: testResults/*.trx
+
+      - name: Publish .xml Test Results
+        uses: EnricoMi/publish-unit-test-result-action/composite@v1
+        if: always()
+        with:
+          files: testReports/**/*.xml
+          check_name: 'Playwright Test Results'

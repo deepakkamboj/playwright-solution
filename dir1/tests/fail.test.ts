@@ -14,11 +14,9 @@ describe("Test Suite # 3", ()=>{
         const page = await context.newPage();
 
         //navigate to a website
-        await page.goto('https://www.yahoo.com/');
+        await page.goto('https://www.kambojsociety.com/');
 
         //fail('it should not reach here');
-
-        throw new Error('I have failed you, Sorry');
 
         await page.close();
         await context.close();

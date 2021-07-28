@@ -60,6 +60,13 @@ export async function executePlaywrightTests(
         {
           outputFile: process.cwd() + '/artifacts/testResults/tests-results.trx'
         }
+      ],
+      [
+        "jest-junit",
+         {
+          "outputDirectory": process.cwd() + "/artifacts/testReports",
+          "outputName": "test_report.xml"
+        }
       ]
     ],
 

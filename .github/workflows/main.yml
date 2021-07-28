@@ -46,11 +46,11 @@ jobs:
         if: ${{ always() }}
         with:
           name: test-artifacts
-          path: testResults/*.trx
+          path: artifacts/testResults/*.trx
 
       - name: Publish .xml Test Results
         uses: EnricoMi/publish-unit-test-result-action/composite@v1
         if: always()
         with:
-          files: testReports/**/*.xml
+          files: artifacts/testReports/**/*.xml
           check_name: 'Playwright Test Results'

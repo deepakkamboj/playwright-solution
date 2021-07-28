@@ -1,8 +1,8 @@
 import { chromium } from "playwright";
 
-describe("Test suite name", ()=>{
+describe("Test Suite # 2", ()=>{
 
-    test("test case name", async()=>{
+    test("test case # 2", async()=>{
         // launch browser
         const browser = await chromium.launch();
 

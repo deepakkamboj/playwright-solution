@@ -110,5 +110,7 @@ screenshots/
 testResults/
 testReports/
 
+lib/
+
 *.png
 *.pdf

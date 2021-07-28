@@ -112,5 +112,7 @@ testReports/
 
 lib/
 
+dir1/jest.config.json
+
 *.png
 *.pdf

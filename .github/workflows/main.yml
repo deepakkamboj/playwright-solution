@@ -45,8 +45,15 @@ jobs:
         uses: actions/upload-artifact@v2
         if: ${{ always() }}
         with:
-          name: test-artifacts
+          name: test-results
           path: artifacts/testResults/*.trx
+
+      - name: Publish Screenshots
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: 'test-screenshots'
+          path: artifacts/screenshots/**/*.*
 
       - name: Publish .xml Test Results
         uses: EnricoMi/publish-unit-test-result-action/composite@v1

@@ -132,7 +132,8 @@ export async function executePlaywrightTests(
       emptyDirSync(artifacts);
     }
     const testNamePatterns = testNamePattern ? [testNamePattern] : [];
-    // Run the Jest asynchronously
+
+     // Run the Jest asynchronously
     const { results } = await runJestCLI(
       {
         $0: '',
